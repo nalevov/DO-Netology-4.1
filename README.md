@@ -69,8 +69,25 @@ done
 Необходимо написать скрипт, который проверяет доступность трёх IP: `192.168.0.1`, `173.194.222.113`, `87.250.250.242` по `80` порту и записывает результат в файл `log`. Проверять доступность необходимо пять раз для каждого узла.
 
 ### Ваш скрипт:
-```bash
-???
+```
+#!/usr/bin/env bash
+services=(192.168.0.1 173.194.222.113 87.250.250.242)
+: > checks.log
+for service in ${services[@]};
+do
+    for attempt in {1..5}
+    do
+        echo "attempt ${attempt}:  ${service}:80";
+        curl -sI "${service}:80" -m 1;
+        if (($? != 0))
+        then
+          echo "attempt ${attempt}:  ${service}:80 unavailable" >> checks.log;
+        else
+          echo "attempt ${attempt}:  ${service}:80 available" >> checks.log;
+        fi
+    done
+    sleep 1
+done
 ```
 
 ## Обязательная задача 4
