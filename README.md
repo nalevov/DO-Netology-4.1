@@ -43,19 +43,19 @@ done
 
 ### Ваш скрипт:
 ```
-#!/usr/bin/env bash
+#!/usr/bin/bash
 while ((1==1))
 do
 last_check="last check time: $(date)"
 echo ${last_check}
-curl https://localhost:4757
-if (($? != 0))
-then
-echo ${last_check} > curl.log
-else
-break
-fi
-sleep 1
+	curl https://localhost:4757
+	if (($? != 0))
+	then
+		echo ${last_check} > curl.log
+	else
+	break
+	fi
+	sleep 1
 done
 ```
 ### Решение
